@@ -2096,7 +2096,7 @@ class Qwen2VLForConditionalGeneration(Qwen2VLPreTrainedModel, GenerationMixin):
         # position_ids_kv, rope_deltas = self.get_rope_index(
         #     input_ids[:,~non_image_mask[0]], image_grid_thw, video_grid_thw, None
         # )
-
+        print('SHIAU')
         outputs = self.model(
             input_ids=None,
             position_ids=position_ids,
