@@ -2100,8 +2100,8 @@ class Qwen2VLForConditionalGeneration(Qwen2VLPreTrainedModel, GenerationMixin):
         outputs = self.model(
             input_ids=None,
             position_ids=position_ids,
-            position_ids_queries= position_ids_queries,
-            position_ids_kv = position_ids_kv,
+            position_ids_queries= position_ids_queries if position_ids_queries else None,
+            position_ids_kv = position_ids_kv if position_ids_kv else None,
             attention_mask=attention_mask,
             past_key_values=past_key_values,
             inputs_embeds=inputs_embeds,
