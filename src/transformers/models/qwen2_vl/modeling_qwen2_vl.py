@@ -2040,7 +2040,8 @@ class Qwen2VLForConditionalGeneration(Qwen2VLPreTrainedModel, GenerationMixin):
 
             if attention_mask is not None:
                 attention_mask = attention_mask.to(inputs_embeds.device)
-
+        position_ids_queries = None
+        position_ids_kv = None
         # if we get 4D attention mask we cannot calculate rope deltas anymore. TODO @raushan fixme
         if position_ids is None and (attention_mask is None or attention_mask.ndim == 2):
             # calculate RoPE index once per generation in the pre-fill stage only
@@ -2096,12 +2097,12 @@ class Qwen2VLForConditionalGeneration(Qwen2VLPreTrainedModel, GenerationMixin):
         # position_ids_kv, rope_deltas = self.get_rope_index(
         #     input_ids[:,~non_image_mask[0]], image_grid_thw, video_grid_thw, None
         # )
-        print('SHIAU')
+        print('SHIAU',position_ids_queries,position_ids_kv)
         outputs = self.model(
             input_ids=None,
             position_ids=position_ids,
-            position_ids_queries= position_ids_queries if position_ids_queries else None,
-            position_ids_kv = position_ids_kv if position_ids_kv else None,
+            position_ids_queries= position_ids_queries,
+            position_ids_kv = position_ids_kv,
             attention_mask=attention_mask,
             past_key_values=past_key_values,
             inputs_embeds=inputs_embeds,
