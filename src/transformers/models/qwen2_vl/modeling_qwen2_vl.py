@@ -2051,7 +2051,6 @@ class Qwen2VLForConditionalGeneration(Qwen2VLPreTrainedModel, GenerationMixin):
                 or self.rope_deltas is None
                 or (past_key_values is None or past_key_values.get_seq_length() == 0)
             ):
-                position_ids_queries = position_ids_queries * [1,12,13,10,10]
                 position_ids_queries, rope_deltas = self.get_rope_index(
                     input_ids[:,non_image_mask[0]], image_grid_thw, video_grid_thw, None
                 )
@@ -2073,7 +2072,6 @@ class Qwen2VLForConditionalGeneration(Qwen2VLPreTrainedModel, GenerationMixin):
                     delta = delta.to(position_ids.device)
                 position_ids = position_ids.add(delta)
                 position_ids = position_ids.unsqueeze(0).expand(3, -1, -1)
-                position_ids_queries = position_ids_queries * [1,19,15,10,10]
 
                 batch_size, seq_length, _ = inputs_embeds[:,non_image_mask[0],:].shape
                 delta = cache_position[0] + self.rope_deltas if cache_position is not None else 0
