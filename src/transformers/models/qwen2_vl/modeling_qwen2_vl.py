@@ -810,8 +810,8 @@ class Qwen2VLSdpaAttentionForText(Qwen2VLAttention):
                 cache_position=cache_position,
                 position_embeddings=position_embeddings,
             )
-        print('hid states: ',hidden_states)
-        print('posembqueries: ',position_embeddings_queries)
+        print('hid states: ',hidden_states.shape)
+        print('posembqueries: ',position_embeddings_queries.shape)
         prev_hidden_states = hidden_states
         hidden_states = hidden_states[:,non_image_mask[0],:]
         bsz, q_len, _ = hidden_states.size()
